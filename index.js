@@ -48,27 +48,6 @@ async function getCheckoutSession(url, pk) {
     }
   }
 
-async function getCheckoutCurrency(url, pk) {
-    try {
-      const [baseUrl, hash] = url.split("#");
-      const response = await fetch(`${baseUrl}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'key=' + pk + '&eid=NA&browser_locale=en-US&redirect_type=stripe_js',
-      });
-  
-      const text = await response.text();
-      const emailRegex = /"currency":\s*"([^"]+)"/;
-      const emailMatch = text.match(emailRegex);
-      const email = emailMatch ? emailMatch[1] : null;
-      return email;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
 async function getAmountDue(url, pk) {
     try {
       const [baseUrl, hash] = url.split("#");
@@ -116,29 +95,34 @@ async function getStripePK(url) {
     return [pk, urlx];
   }
   
-async function main() {
-    const url = await new Promise((resolve) => {
-      readline.question('Enter the URL: ', (url) => {
-        resolve(url);
-      });
-    });
-  
+  async function getCheckoutCurrency(url, pk) {
     try {
-      const [pk, urlx] = await getStripePK(url);
-      const email = await getCustomerEmail(urlx, pk);
-      const session_id = await getCheckoutSession(urlx, pk);
-      const amountDue = await getAmountDue(urlx, pk);
-      const currency_chk = await getCheckoutCurrency(urlx, pk);
+      const [baseUrl, hash] = url.split("#");
+      const response = await fetch(`${baseUrl}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'key=' + pk + '&eid=NA&browser_locale=en-US&redirect_type=stripe_js',
+      });
   
-      console.log(`Email: ${email}`);
-      console.log(`Session ID: ${session_id}`);
-      console.log(`Amount Due: ${amountDue}`);
-      console.log(`Currency : ${currency_chk}`);
+      const text = await response.text();
+      const emailRegex = /"currency":\s*"([^"]+)"/;
+      const emailMatch = text.match(emailRegex);
+      const email = emailMatch ? emailMatch[1] : null;
+      return email;
     } catch (error) {
       console.error(error);
     }
-  
-    readline.close();
   }
 
-main()
+module.exports = {
+  getStripePK,
+  getAmountDue,
+  getCustomerEmail,
+  getCheckoutSession,
+  getCheckoutCurrency
+}
+  
+  
+    
