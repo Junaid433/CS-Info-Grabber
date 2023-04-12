@@ -3,13 +3,14 @@ Grab details from stripe checkout link
 
 Install dependencies:
 
-npm install puppeteer
-npm install express
+> npm install puppeteer
+> npm install express
 
 For web version look at web branch of this repo
 
 Usage : 
-node index.js
+
+> node index.js
 
 Ouput : 
 
