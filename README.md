@@ -1,6 +1,8 @@
 # CS-Info-Grabber
 Grab details from stripe checkout link
 
+Install google chrome
+
 Install dependencies:
 
 > npm install puppeteer
