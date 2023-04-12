@@ -1,7 +1,6 @@
 # CS-Info-Grabber
 Grab details from stripe checkout link
 
-Grab details from stripe checkout link
 
 Install google chrome
 
