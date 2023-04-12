@@ -3,6 +3,8 @@ Grab details from stripe checkout link
 
 Grab details from stripe checkout link
 
+Install google chrome
+
 Install dependencies:
 
 > npm install puppeteer
