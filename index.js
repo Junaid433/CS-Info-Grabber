@@ -134,6 +134,7 @@ async function main() {
       console.log(`Session ID: ${session_id}`);
       console.log(`Amount Due: ${amountDue}`);
       console.log(`Currency : ${currency_chk}`);
+      console.log(`Pk : ${pk}`);
     } catch (error) {
       console.error(error);
     }
